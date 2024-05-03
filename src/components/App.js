@@ -110,9 +110,11 @@ points of each question. The initial value of the accumulator is set to 0. */
   );
 
   /* This `useEffect` hook is making a network request to fetch data from the specified URL
-`http://localhost:8000/questions` when the component mounts.*/
+  when the component mounts.*/
   useEffect(function () {
-    fetch("http://localhost:8000/questions")
+    fetch(
+      "https://my-json-server.typicode.com/kerstin-w/react-quiz-app/questions"
+    )
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
       .catch((err) => dispatch({ type: "dataFailed" }));
