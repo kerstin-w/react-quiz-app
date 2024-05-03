@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
+import Error from "./Error";
 
 const initialState = {
   questions: [],
@@ -28,18 +29,19 @@ export default function App() {
   const [{ quesion, status }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(function () {
-    fetch("http://localhost:8000/questions").then((res) =>
-      res
-        .json()
-        .then((data) => dispatch({ type: "dataReceived", payload: data }))
-        .catch((err) => dispatch({ type: "dataFailed" }))
-    );
+    fetch("http://localhost:8000/questions")
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
   return (
     <div className="app">
       <Header />
-      <Main>{status === "loading" && <Loader />}</Main>
+      <Main>
+        {status === "loading" && <Loader />}
+        {status === "error" && <Error />}
+      </Main>
     </div>
   );
 }
