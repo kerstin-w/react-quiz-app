@@ -25,6 +25,19 @@ const initialState = {
   secondsRemaining: null,
 };
 
+/**
+ * The reducer function handles different actions to update the state in a quiz application.
+ * @param state - The `state` parameter in the `reducer` function represents the current state of the
+ * application. It contains various pieces of data that are used to manage the state of the
+ * application, such as questions, status, points, index, answer, secondsRemaining, and highscore. The
+ * reducer function takes
+ * @param action - The `action` parameter in the `reducer` function represents an object that contains
+ * information about the action being dispatched. It typically has a `type` property that describes the
+ * type of action being performed, as well as an optional `payload` property that can hold additional
+ * data relevant to the action.
+ * @returns The reducer function takes in the current state and an action, then based on the action
+ * type, it updates and returns a new state object. The return value depends on the action type:
+ */
 function reducer(state, action) {
   switch (action.type) {
     case "dataReceived":
@@ -72,6 +85,15 @@ function reducer(state, action) {
   }
 }
 
+/**
+ * The `App` function in JavaScript is a component that manages a quiz application, fetching questions
+ * from a server, displaying different screens based on the quiz status, and handling user
+ * interactions.
+ * @returns The `App` component is being returned. It contains various conditional rendering based on
+ * the `status` state, such as displaying a loader when loading, an error component when there is an
+ * error, a start screen when ready, the quiz questions when active, and a finish screen when the quiz
+ * is finished.
+ */
 export default function App() {
   const [
     { questions, status, index, answer, points, highscore, secondsRemaining },
@@ -87,6 +109,8 @@ points of each question. The initial value of the accumulator is set to 0. */
     0
   );
 
+  /* This `useEffect` hook is making a network request to fetch data from the specified URL
+`http://localhost:8000/questions` when the component mounts.*/
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
